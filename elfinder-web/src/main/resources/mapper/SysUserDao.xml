@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kong.web.dao.SysUserDao">
+    <resultMap id="sysUser" type="cn.kong.web.entity.SysUser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="email" property="email" />
+        <result column="password" property="password"/>
+        <result column="activated" property="activated"/>
+        <result column="activationkey" property="activationkey"/>
+        <result column="resetpasswordkey" property="resetpasswordkey"/>
+        <collection property="sysRoleEntities" javaType="java.util.Set" ofType="cn.kong.web.entity.SysRole"
+                    select="roleSelectById" column="{username=username}" />
+        <!-- qid/sort是定义的变量名, id/sort是主表的字段id/sort,
+        先查出主表的结果, 然后主表记录数是几 就执行几次 collection 的select,
+        javaType和ofType 写不写都行,
+        select的值: 对应xml的namespace + 对应xml中的代码片段的id,
+        column作为select语句的参数传入,如果只传一个参数id可以简写: column="id" -->
+<!--        <association property="sysRoleEntities" javaType="cn.kong.web.entity.SysRole">-->
+<!--            <id property="id" column="id"/>-->
+<!--            <result property="name" column="name"/>-->
+<!--        </association>-->
+    </resultMap>
+    <select id="selectUser" resultMap="sysUser" parameterType="cn.kong.web.entity.SysUser">
+        select * from sys_user where username=#{username}
+    </select>
+<select id="roleSelectById" resultType="cn.kong.web.entity.SysRole" >
+    SELECT
+        *
+    FROM
+        sys_role
+    WHERE
+            id IN (
+            SELECT
+                sur.role_id
+            FROM
+                sys_user_role sur ,sys_user su
+            WHERE
+                sur.user_id =su.id and su.username = #{username})
+</select>
+</mapper>

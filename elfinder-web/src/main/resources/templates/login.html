@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="icon" href="data:image/ico;base64,aWNv">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登陆</title>
+    <link rel="stylesheet" type="text/css" href="../static/elfinder/css/style.css">
+</head>
+<body>
+    <!-- 整体布局 -->
+    <div class="container right-panel-active">
+        <!-- 注册框 -->
+        <div class="container_form container--signup">
+            <form action="#" class="form" id="form1">
+                <h2 class="form_title">注册账号</h2>
+                <input type="text" placeholder="User" class="input">
+                <input type="email" placeholder="Email" class="input">
+                <input type="password" placeholder="Password" class="input">
+                <button class="btn">点击注册</button>
+            </form>
+        </div>
+         <!-- 登录框 -->
+         <div class="container_form container--signin">
+            <form action="/login" method="post" class="form" id="form2">
+                <h2 class="form_title">欢迎登陆</h2>
+                <input name="username" type="text" placeholder="username" class="input">
+                <input name="password" type="password" placeholder="Password" class="input">
+                <a href="/login" class="link">忘记密码？</a>
+                <button type="submit" class="btn">登陆</button>
+            </form>
+        </div>
+        <div class="container_overlay">
+            <div class="overlay">
+                <div class="overlay_panel overlay--left">
+                    <button id="signin" class="btn">已有账号，直接登陆</button>
+                </div>
+                <div class="overlay_panel overlay--right">
+                    <button id="signup" class="btn">没有账号，点击注册</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="../static/elfinder/js/script.js"></script>
+</html>
